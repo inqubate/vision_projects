@@ -37,7 +37,7 @@ print("=====> Validation Data       ", valX.shape, valY.shape)
 print("=====> Test Data             ", testX.shape, testY.shape)
 
 # if we are using a simple neural network then we need to
-# flatten the data to 28 * 28 *
+# flatten the data to 28 * 28 * 1
 # for the convolutional neural network RGB normalization is enough
 trainX = trainX.reshape((trainX.shape[0], 28 * 28 * 1))
 valX = valX.reshape((valX.shape[0], 28 * 28 * 1))
