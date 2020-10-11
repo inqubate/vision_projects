@@ -15,7 +15,7 @@ from tensorflow.keras.datasets import cifar10
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.utils import plot_model
 
-from models import Simplenn
+from models import Simpleconv
 
 ######################################################################################
 #                 Dataset preprocessing                                              #
@@ -40,15 +40,15 @@ print("=====> Test Data             ", testX.shape, testY.shape)
 # if we are using a simple neural network then we need to
 # flatten the data to 28 * 28 *
 # for the convolutional neural network RGB normalization is enough
-trainX = trainX.reshape((trainX.shape[0], 32 * 32 * 3))
-valX = valX.reshape((valX.shape[0], 32 * 32 * 3))
-testX = testX.reshape((testX.shape[0], 32 * 32 * 3))
+# trainX = trainX.reshape((trainX.shape[0], 32 * 32 * 3))
+# valX = valX.reshape((valX.shape[0], 32 * 32 * 3))
+# testX = testX.reshape((testX.shape[0], 32 * 32 * 3))
 
-print("===========================================================================================")
-print("[INFO] : Shapes of the data after reshaping")
-print("=====> Train Data            ", trainX.shape, trainY.shape)
-print("=====> Validation Data       ", valX.shape, valY.shape)
-print("=====> Test Data             ", testX.shape, testY.shape)
+# print("===========================================================================================")
+# print("[INFO] : Shapes of the data after reshaping")
+# print("=====> Train Data            ", trainX.shape, trainY.shape)
+# print("=====> Validation Data       ", valX.shape, valY.shape)
+# print("=====> Test Data             ", testX.shape, testY.shape)
 
 # convert the labels from integers to vectors
 lb = LabelBinarizer()
@@ -65,9 +65,9 @@ print("=====> Test Data             ", testX.shape, testY.shape)
 ######################################################################################
 #                 Hyperparameter initialization                                      #
 ######################################################################################
-input_shape = (trainX.shape[1],)
+_, width, height, depth = trainX.shape
 n_classes = 10
-n_layers = [64, 32, 32, 10]
+# n_layers = [32, 32, 32, 10]
 activation_type = {"input": "relu", "hidden": "relu", "output": "softmax"}
 learning_rate = 0.01
 n_epochs = 10
@@ -83,13 +83,13 @@ plt.rcParams['font.size'] = 9
 print("[INFO] building and training network...")
 
 opt = SGD(learning_rate)
-model = Simplenn.build(input_shape, n_classes, n_layers, activation_type)
+model = Simpleconv.build(width, height, depth, n_classes)
 model.compile(loss="categorical_crossentropy", optimizer=opt,
               metrics=["accuracy"])
 H = model.fit(trainX, trainY, validation_data=(valX, valY),
               epochs=n_epochs, batch_size=128)
 model.summary()
-output_file = "model-plot" + timestamp + ".png"
+output_file = "conv-model-plot" + timestamp + ".png"
 path = output_folder + "/" + output_file
 plot_model(model, to_file=path, show_shapes=True, show_layer_names=True, )
 
@@ -109,7 +109,7 @@ plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")
 plt.legend()
 
-output_file = "val-train-" + timestamp + ".png"
+output_file = "conv-val-train-" + timestamp + ".png"
 path = output_folder + "/" + output_file
 plt.savefig(path)
 
@@ -138,6 +138,6 @@ p = sns.heatmap(cm, annot=True, cmap="YlGnBu", fmt='.2f', square=True, ax=ax)
 plt.xlabel("True Labels")
 plt.ylabel("Predicted Labels")
 plt.title("Confusion Matrix")
-output_file = "confusion-matrix-" + timestamp + ".png"
+output_file = "conv-confusion-matrix-" + timestamp + ".png"
 path = output_folder + "/" + output_file
 plt.savefig(path)
