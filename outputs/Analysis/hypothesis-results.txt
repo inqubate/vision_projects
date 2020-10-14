@@ -1,0 +1,47 @@
+Task 1 - 5.12 s ± 118 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+Model Accuracy 0.8926
+
+Task 2 - 10 s ± 94.8 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+Model Accuracy 0.521
+
+Hypothesis T3_H1 - Increasing number of epochs can increase accuracy?
+Number of epochs = 10
+T1 Model - Model Accuracy 0.9064
+T2 Model - Model Accuracy 0.8836
+
+
+Hypothesis T3_H2 - Reducing the number of batches can increase accuracy?
+Batch size = 64
+T1 model - Model Accuracy 0.8993
+T2 model - Model Accuracy 0.8561
+
+
+
+Hypothesis T3_H3 - Increasing one more Conv2D layer can increase accuracy?
+T3_H3 model with another layer of Conv2D layer added on top of T2 model
+Model Accuracy 0.0958
+
+Hypothesis T3_H4 - Increasing the number of Dense Layers in Conv2D can increase accuracy?
+T3_H4 model - with another dense layer added on top of the baseline T2 model
+Model Accuracy 0.1135
+
+Hypothesis T3_H5 - Increasing the number of nodes in the Conv2D layer can increase accuracy?
+1. Only the first Conv2D model nodes are increased
+Hypothesis T3_H5_1 Model - Model Accuracy 0.336
+Hypothesis T3_H5_2 Model - Model Accuracy 0.0959
+Hypothesis T3_H5_3 Model - Model Accuracy 0.0958
+
+**Hypothesis T3_H5_4 - Explore the impacts of different node sizes on all the three conditions** Stretch Goal
+
+
+Hypothesis T3_H6 - Increasing the number of nodes in the Dense layer can increase accuracy
+Model Accuracy 0.3698
+
+Hypothesis T3_H7_1 - Reducing the learning rate can improve accuracy?
+Model Accuracy 0.1135
+
+Hypothesis T3_H7_2 - Increasing the learning rate can improve accuracy?
+Model Accuracy 0.9357
+
+Hypothesis T3_H8 - Training with the holdout Validation set can improve accuracy?
+Model Accuracy 0.1759
